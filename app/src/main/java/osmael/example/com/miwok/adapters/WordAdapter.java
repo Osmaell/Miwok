@@ -2,10 +2,13 @@ package osmael.example.com.miwok.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,8 +22,11 @@ import osmael.example.com.miwok.model.Word;
 
 public class WordAdapter extends ArrayAdapter<Word> {
 
-    public WordAdapter(Context context, List<Word> words) {
+    private int mColorResourceId;
+
+    public WordAdapter(Context context, List<Word> words, int colorResourceId) {
         super(context, 0, words);
+        this.mColorResourceId = colorResourceId;
     }
 
     /**
@@ -49,6 +55,25 @@ public class WordAdapter extends ArrayAdapter<Word> {
         TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         defaultTextView.setText(currentWord.getDefaultTranslate());
 
+        ImageView imageView = (ImageView)  listItemView.findViewById(R.id.image_miwok);
+
+        if (currentWord.hasImage()) {
+            imageView.setImageResource(currentWord.getmImageResourceId());
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            imageView.setVisibility(View.GONE);
+        }
+
+        // Definindo o tema da cor para os itens da lista
+        View textContainer = listItemView.findViewById(R.id.text_container);
+
+        // Achar a cor para a qual o recurso de ID mapeia
+        int color = ContextCompat.getColor(getContext(), mColorResourceId);
+
+        // Definindo a cor de plano de fundo para o textContainer
+
+        LinearLayout linearLayout = (LinearLayout) listItemView.findViewById(R.id.text_container);
+        linearLayout.setBackgroundResource(mColorResourceId);
         return listItemView;
     }
 

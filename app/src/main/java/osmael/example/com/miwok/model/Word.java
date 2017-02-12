@@ -16,22 +16,40 @@ package osmael.example.com.miwok.model;
 public class Word {
 
     /* Tradução padrão para uma palavra */
-    private String miwokTranslate;
+    private String mMiwokTranslate;
 
     /* Tradução Miwok para uma palavra */
-    private String defaultTranslate;
+    private String mDefaultTranslate;
+
+    private int mImageResourceId = NO_IMAGE_PROVIDED;
+
+    private static final int NO_IMAGE_PROVIDED = -1;
 
     public Word(String defaultTranslate, String miwokTranslate) {
-        this.defaultTranslate = defaultTranslate;
-        this.miwokTranslate = miwokTranslate;
+        this.mDefaultTranslate = defaultTranslate;
+        this.mMiwokTranslate = miwokTranslate;
+    }
+
+    public Word(String defaultTranslate, String miwokTranslate, int imageResourceId) {
+        this.mDefaultTranslate = defaultTranslate;
+        this.mMiwokTranslate = miwokTranslate;
+        this.mImageResourceId = imageResourceId;
     }
 
     public String getMiwokTranslate() {
-        return miwokTranslate;
+        return mMiwokTranslate;
     }
 
     public String getDefaultTranslate() {
-        return defaultTranslate;
+        return mDefaultTranslate;
+    }
+
+    public int getmImageResourceId() {
+        return mImageResourceId;
+    }
+
+    public boolean hasImage() {
+        return mImageResourceId != NO_IMAGE_PROVIDED;
     }
 
 }
