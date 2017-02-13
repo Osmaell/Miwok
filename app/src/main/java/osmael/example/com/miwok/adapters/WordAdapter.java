@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -71,9 +70,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
         int color = ContextCompat.getColor(getContext(), mColorResourceId);
 
         // Definindo a cor de plano de fundo para o textContainer
+        textContainer.setBackgroundResource(mColorResourceId);
 
-        LinearLayout linearLayout = (LinearLayout) listItemView.findViewById(R.id.text_container);
-        linearLayout.setBackgroundResource(mColorResourceId);
         return listItemView;
     }
 
