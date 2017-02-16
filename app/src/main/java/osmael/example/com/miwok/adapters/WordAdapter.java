@@ -23,6 +23,14 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
     private int mColorResourceId;
 
+    /**
+     * Cria um novo objeto {@link WordAdapter}.
+     *
+     * @param context é o contexto corrente (ex. Activity) onde o adaptador está sendo criado.
+     * @param words é a lista de {@link Word}s a ser exibido.
+     * @param colorResourceId é o ID de recurso para a cor de fundo (background color) para
+     *                        essa lista de words (palavras).
+     */
     public WordAdapter(Context context, List<Word> words, int colorResourceId) {
         super(context, 0, words);
         this.mColorResourceId = colorResourceId;
