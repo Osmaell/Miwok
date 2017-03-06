@@ -1,20 +1,28 @@
-package osmael.example.com.miwok;
+package osmael.example.com.miwok.fragments;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import osmael.example.com.miwok.R;
 import osmael.example.com.miwok.adapters.WordAdapter;
 import osmael.example.com.miwok.model.Word;
 
-public class PhrasesActivity extends AppCompatActivity {
+/**
+ * Created by Osmael on 16/02/17.
+ */
+
+public class ColorsFragment extends Fragment {
 
     /** Lida com a reprodução de todos os arquivos de áudio */
     private MediaPlayer mMediaPlayer;
@@ -72,35 +80,37 @@ public class PhrasesActivity extends AppCompatActivity {
 
     };
 
+    public ColorsFragment() {
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_list);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
 
         // Criando e configurando o {@link AudioManager} para solicitar o foco do áudio
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         // Criando uma lista de words (palavras)
         final ArrayList<Word> words = new ArrayList<>();
-        words.add(new Word("Where are you going?", "minto wuksus", R.raw.phrase_where_are_you_going));
-        words.add(new Word("What is your name?", "tinnә oyaase'nә", R.raw.phrase_what_is_your_name));
-        words.add(new Word("My name is...", "oyaaset...", R.raw.phrase_my_name_is));
-        words.add(new Word("How are you feeling?", "michәksәs?", R.raw.phrase_how_are_you_feeling));
-        words.add(new Word("I’m feeling good.", "kuchi achit", R.raw.phrase_im_feeling_good));
-        words.add(new Word("Are you coming?", "әәnәs'aa?", R.raw.phrase_are_you_coming));
-        words.add(new Word("Yes, I’m coming.", "hәә’ әәnәm", R.raw.phrase_yes_im_coming));
-        words.add(new Word("I’m coming.", "әәnәm", R.raw.phrase_im_coming));
-        words.add(new Word("Let’s go.", "yoowutis", R.raw.phrase_lets_go));
-        words.add(new Word("Come here.", "әnni'nem", R.raw.phrase_come_here));
+        words.add(new Word("red", "weṭeṭṭi", R.drawable.color_red, R.raw.color_red));
+        words.add(new Word("green", "chokokki", R.drawable.color_green, R.raw.color_green));
+        words.add(new Word("brown", "ṭakaakki", R.drawable.color_brown, R.raw.color_brown));
+        words.add(new Word("gray", "ṭopoppi", R.drawable.color_gray, R.raw.color_gray));
+        words.add(new Word("black", "kululli", R.drawable.color_black, R.raw.color_black));
+        words.add(new Word("white", "kelelli", R.drawable.color_white, R.raw.color_white));
+        words.add(new Word("dusty yellow", "ṭopiisә", R.drawable.color_dusty_yellow, R.raw.color_dusty_yellow));
+        words.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow, R.raw.color_mustard_yellow));
 
         // Criando um {@link WordAdapter}, cuja fonte de dados é uma {@link Word}s. O adapter
         // sabe como criar uma list_item (item de lista) para cada item na lista.
-        WordAdapter adapter = new WordAdapter(this, words, R.color.category_phrases);
+        WordAdapter adapter = new WordAdapter(getActivity(), words, R.color.category_colors);
 
         // Encontra um objeto {@link ListView} na hierarquia de view de {@link Activity}.
         // Deve haver um {@link ListView} com uma view que tenha um ID chamado list, que é
         // declarado no arquivo de layout word_list.xml.
-        ListView listView = (ListView) findViewById(R.id.list);
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
 
         // Faz o {@link ListView} usar o {@link WordAdapter} criado acima, então
         // o {@link ListView} exibirá itens de lista para cada {@link Word} na lista.
@@ -132,7 +142,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
                     // Criando e configurando {@link MediaPlayer} para o recurso de áudio
                     // associado com a palavra (word) atual
-                    mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getmAudioResourceId());
+                    mMediaPlayer = MediaPlayer.create(getActivity(), word.getmAudioResourceId());
 
                     // Ínicia o arquivo de áudio
                     mMediaPlayer.start();
@@ -146,10 +156,12 @@ public class PhrasesActivity extends AppCompatActivity {
             }
 
         });
+
+        return rootView;
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         // Quando a activity é parada, liberamos os recursos do media player porque
         // não queremos está tocando mais sons.

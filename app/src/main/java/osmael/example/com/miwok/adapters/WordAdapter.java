@@ -16,11 +16,13 @@ import osmael.example.com.miwok.R;
 import osmael.example.com.miwok.model.Word;
 
 /**
- * Created by root on 09/02/17.
+ * {@link WordAdapter} é uma {@link ArrayAdapter} que fornece o layout para cada
+ * item da lista baseado em uma fonte de dados, que é uma lista de objetos
+ * {@link Word}.
  */
-
 public class WordAdapter extends ArrayAdapter<Word> {
 
+    /** ID de recurso para a cor de fundo para a lista de words (palavras) */
     private int mColorResourceId;
 
     /**
@@ -49,25 +51,40 @@ public class WordAdapter extends ArrayAdapter<Word> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        // checa se uma view existente está sendo usada, de outra forma infla a view
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
 
+        // Obtém o objeto {@link Word} localizado na posição da lista
         Word currentWord = getItem(position);
 
+        // Encontra o TextView no layout list_item.xml com o ID miwok_text_view.
         TextView numberTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
+
+        // Obtém o miwok translation da objeto currentWord e define o texto
+        // passado em Miwok TextView
         numberTextView.setText(currentWord.getMiwokTranslate());
 
+        // Encontra o TextView no layout list_item.xml com o ID default_text_view.
         TextView defaultTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
+
+        // Obtém o default translation da objeto currentWord e define o texto passado
+        // em Miwok TextView
         defaultTextView.setText(currentWord.getDefaultTranslate());
 
+        // Encontra a ImageView no layout list_item.xml com o ID image.
         ImageView imageView = (ImageView)  listItemView.findViewById(R.id.image_miwok);
 
+        // Checa se uma imagem é forneceida pelo objeto word ou não
         if (currentWord.hasImage()) {
+            // Se uma imagem é disponível, exibe a imagem fornecida baseado no resource ID
             imageView.setImageResource(currentWord.getmImageResourceId());
+            // Certifique-se de que a view é visível
             imageView.setVisibility(View.VISIBLE);
         } else {
+            // De outra forma esconde o ImagemView (definindo a visibilidade para GONE)
             imageView.setVisibility(View.GONE);
         }
 
@@ -80,6 +97,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Definindo a cor de plano de fundo para o textContainer
         textContainer.setBackgroundResource(mColorResourceId);
 
+        // Retorna todo o layout do item da lista (Contendo 2 TextViews) para que possa
+        // ser mostrado o ListView
         return listItemView;
     }
 

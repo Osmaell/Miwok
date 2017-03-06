@@ -1,7 +1,7 @@
 package osmael.example.com.miwok.model;
 
 /**
- * Created by root on 09/02/17.
+ * Created by Osmael on 09/02/17.
  */
 
 /**
@@ -59,11 +59,11 @@ public class Word {
         this.mImageResourceId = imageResourceId;
         this.mAudioResourceId = audioResourceId;
     }
-
+    
     public String getMiwokTranslate() {
         return mMiwokTranslate;
     }
-
+    
     public String getDefaultTranslate() {
         return mDefaultTranslate;
     }
