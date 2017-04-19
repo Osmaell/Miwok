@@ -1,3 +1,3 @@
 # Miwok
 
-Exibe uma lista de vocabulário de palavras para o usuário aprender o idioma Miwok.
+App que ensina alguns vocabulários do idioma Miwok.
